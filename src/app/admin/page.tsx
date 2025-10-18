@@ -5,7 +5,23 @@ import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../context/i18n';
 
 export default function AdminPage() {
-  const [data, setData] = useState<{ users: any[]; courses: any[] } | null>(null);
+  interface User {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  isAdmin: boolean;
+}
+
+interface Course {
+  _id: string;
+  userId: User;
+  courseNumber: string;
+  bookedAt: string;
+}
+
+const [data, setData] = useState<{ users: User[]; courses: Course[] } | null>(null);
+
   const [loading, setLoading] = useState(true);
   const { lang } = useLanguage();
   const t = translations[lang];
