@@ -7,7 +7,16 @@ import { translations } from './context/i18n';
 export default function HomePage() {
   const { lang } = useLanguage();
   const t = translations[lang];
-  const [user, setUser] = useState<any>(null);
+  interface User {
+  name: string;
+  email: string;
+  phone?: string;
+  role?: string;
+  userId?: string;
+}
+
+const [user, setUser] = useState<User | null>(null);
+
 
   useEffect(() => {
     // ✅ استخدم البيانات المخزنة في localStorage باسم "user"
