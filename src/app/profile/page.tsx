@@ -5,19 +5,29 @@ import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../context/i18n';
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
+  type User = {
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+  userId: string;
+};
+
+const [user, setUser] = useState<User | null>(null);
+
   const { lang } = useLanguage();
   const t = translations[lang];
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) return;
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      setUser(payload);
-    } catch {
-      setUser(null);
-    }
+try {
+  const payload: User = JSON.parse(atob(token.split('.')[1]));
+  setUser(payload);
+} catch {
+  setUser(null);
+}
+
   }, []);
 
   if (!user)
