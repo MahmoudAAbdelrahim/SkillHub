@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../context/i18n';
+import { FormEvent } from 'react';
 
 export default function RegisterPage() {
   const { lang } = useLanguage();
@@ -11,8 +12,8 @@ export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', password: '' });
   const [msg, setMsg] = useState('');
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
     const res = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
